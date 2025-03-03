@@ -18,11 +18,9 @@ class Author:
     def add_article(self, magazine, title): # To add article to author's list of articles
         article = Article(self, magazine, title)
         self._articles.append(article)
-
-        print(f"New Article: {title} added to Author: {self._name}")
         return article
 
-    def topic_areas(self): # Return list of categories by an author
+    def topic_areas(self): # Return list of an author's categories
         categories = list(set(mag.category for mag in self.magazines()))
         return categories if categories else None
         
@@ -94,7 +92,7 @@ class Magazine:
         return max(magazine_counts, key=magazine_counts.get)
 
 class Article:
-    articles = [] # Initializing article list for storing all articles
+    all = [] # Initializing article list for storing all articles
     def __init__(self, author, magazine, title):
         if not isinstance(author, Author):
             raise ValueError("Author must be an instance of Author class")
@@ -112,7 +110,7 @@ class Article:
         
         print(f"New Article created: {self.title} by {self.author.name} in {self.magazine.name}")
         
-        Article.articles.append(self) # adding new article to article list
+        Article.all.append(self) # adding new article to article list
     
     @property
     def title(self):
@@ -141,4 +139,6 @@ class Article:
             print(f"Changing magazine from {self._magazine.name} to {newmagazine.name}")
             self._magazine = newmagazine
             # self._magazine.articles().append(self)
+        else:
+            raise ValueError("Magazine must be an instance of Magazine class")
     
